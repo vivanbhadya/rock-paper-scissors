@@ -2,15 +2,96 @@
     <head>
     </head>
     <body>
-        <div class="buttons">
-            <button id="rock">Rock</button>
-            <button id="paper">Paper</button>
-            <button id="scissors">Scissors</button>
-        </div>
-        <br><br>
-        <div class="result">
+        <script>
+            
+            function computerPlay(){
+                let rand = Math.floor(Math.random()*3) + 1;
+                if(rand === 1){
+                    return 'Rock';
+                }
+                if(rand === 2){
+                    return 'Paper';
+                }
+                if(rand === 3){
+                    return 'Scissors';
+                }
+            }
 
-        </div>
-        <script src = 'script.js'></script>
+            function playerPlay(){
+                let hand = prompt('Rock, paper or scissors?');
+                hand = hand.toLowerCase();
+
+                if(hand === 'rock'){
+                    return 'Rock';
+                }
+
+                if(hand === 'paper'){
+                    return 'Paper';
+                }
+
+                if(hand === 'scissors'){
+                    return 'Scissors';
+                }
+            }
+
+            function playRound(playerSelection, computerSelection){
+                console.log('You played ' + playerSelection.toUpperCase() + ', computer played ' + computerSelection.toUpperCase() + '...');
+                // console.log('Computer played ' + computerSelection + '...');
+
+                let result;
+
+                if((playerSelection === 'Rock' && computerSelection === 'Rock') 
+                || (playerSelection === 'Paper' && computerSelection === 'Paper')
+                || (playerSelection === 'Scissors' && computerSelection === 'Scissors')){
+                    result = 2;
+                    return result;
+                }
+                if((playerSelection === 'Rock' && computerSelection === 'Scissors')
+                || (playerSelection === 'Paper' && computerSelection === 'Rock')
+                || (playerSelection === 'Scissors' && computerSelection === 'Paper')){
+                    result = 1;
+                    return result;
+                }
+                if((playerSelection === 'Rock' && computerSelection === 'Paper')
+                || (playerSelection === 'Paper' && computerSelection === 'Scissors')
+                || (playerSelection === 'Scissors' && computerSelection === 'Rock')){
+                    result = 0;
+                    return result;
+                }
+            }
+
+            function game(rounds){
+                let playerScore = 0;
+                let computerScore = 0;
+
+                for(round=1; round<=rounds; round++){
+                    console.log('Round ' + round + ':');
+                    result = playRound(playerPlay(), computerPlay());
+
+                    if(result === 2){
+                        console.log('TIE!');
+                        console.log('You: ' + playerScore + '   Computer: ' + computerScore);
+                    }else if(result === 1){
+                        console.log('YOU win!');
+                        playerScore++;
+                        console.log('You: ' + playerScore + '   Computer: ' + computerScore);
+                    }else if(result === 0){
+                        console.log('COMPUTER wins!');
+                        computerScore++;
+                        console.log('You: ' + playerScore + '   Computer: ' + computerScore);
+                    }
+                    console.log('---------------------------------------------------\n');
+                }
+
+                if(playerScore > computerScore){
+                    return 'YOU WIN! CONGRATULATIONS!';
+                }else if(playerScore < computerScore){
+                    return 'COMPUTER WINS! TOUGH LUCK.';
+                }else{
+                    return "IT'S A TIE! PLAY ANOTHER GAME!";
+                }
+            }
+
+        </script>
     </body>
 </html>
